@@ -1,0 +1,1709 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Code Smells &#8212; My Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'code-smells';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    <p class="title logo__title">My Jupyter Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Code Smells
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/code-smells.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Code Smells</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-1">Smell 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-2">Smell 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-3">Smell 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-4">Smell 4</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-5">Smell 5</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-6">Smell 6</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-7">Smell 7</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-8">Smell 8</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-9">Smell 9</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-10">Smell 10</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-11">Smell 11</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other">Other</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%html</span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">line-height</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>  
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+body {
+    line-height: 1.5rem;
+}
+</style>  
+</div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">user</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;auth_0_user_id&#39;</span><span class="p">:</span> <span class="s1">&#39;xyz123&#39;</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">DatabaseStub</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">get_user_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth0_user</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stub: Getting user by id </span><span class="si">{</span><span class="n">auth0_user</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">;</span>
+
+  <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stub: Deleting user with id </span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">;</span>
+
+<span class="n">database</span> <span class="o">=</span> <span class="n">DatabaseStub</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="code-smells">
+<h1>Code Smells<a class="headerlink" href="#code-smells" title="Permalink to this heading">#</a></h1>
+<details>
+  <summary>What is a code smell?</summary>
+<p>The term “code smell” refers to any characteristic in code that suggests a deeper problem in the design or implementation.</p>
+</details>
+<p><i>Note, example code is just for demonstration purposes and may not show the “best” solution. For example, <code class="docutils literal notranslate"><span class="pre">for</span></code> loops have been used in a number of examples, however <code class="docutils literal notranslate"><span class="pre">map</span></code> or <code class="docutils literal notranslate"><span class="pre">reduce</span></code> would be my usual preference.</i></p>
+<section id="smell-1">
+<h2>Smell 1<a class="headerlink" href="#smell-1" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>The function signature (definition) has too many parameters</strong></p>
+<ul class="simple">
+<li><p>Functions with too many parameters can be difficult to understand and maintain</p></li>
+<li><p>Calls are brittle. Passing arguments in the wrong order can result in errors or bugs.</p></li>
+<li><p>It can be a sign that the function is doing too much and should be split into smaller functions</p></li>
+</ul>
+<p><em>Tip: 3-5 parameters/arguments is a good rule to follow</em></p>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function createUser(name, age, email, password, address, phone, isAdmin) {
+  // ...
+  return true;
+}
+
+createUser(&quot;John Doe&quot;, 30, &quot;johndoe@example.com&quot;, &quot;mypassword&quot;, &quot;123 Main St&quot;, &quot;555-555-5555&quot;, false);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">phone</span><span class="p">,</span> <span class="n">is_admin</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+    <span class="kc">True</span>
+
+<span class="n">create_user</span><span class="p">(</span><span class="s2">&quot;John Doe&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;johndoe@example.com&quot;</span><span class="p">,</span> <span class="s2">&quot;mypassword&quot;</span><span class="p">,</span> <span class="s2">&quot;123 Main St&quot;</span><span class="p">,</span> <span class="s2">&quot;555-555-5555&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h3>
+<p>In JS, instead of passing each argument separately to the function, we pass an object that contains all of the necessary properties. This makes the function easier to read and understand, and makes it easier to add or remove properties in the future.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function createUser(user) {
+  // ...
+  return true;
+}
+
+const user = {
+  name: &#39;John Doe&#39;,
+  age: 30,
+  email: &#39;johndoe@example.com&#39;,
+  password: &#39;mypassword&#39;,
+  address: &#39;123 Main St.&#39;,
+  phone: &#39;555-555-5555&#39;,
+  isAdmin: false
+};
+
+createUser(user);
+</pre></div>
+</div>
+</div>
+</div>
+<p>In Python named arguments can be used to improve the readability of the code.</p>
+<p>Using <strong>named (keyword) arguments</strong> in Python offers several benefits compared to using positional arguments:</p>
+<ul class="simple">
+<li><p><strong>Readability</strong>: Keyword arguments make it clear which value is being passed to which parameter, making the code more self-documenting and easier to understand.</p></li>
+<li><p><strong>Less error prone</strong>: By using keyword arguments, you can reduce the risk of errors caused by passing arguments in the wrong order.</p></li>
+<li><p><strong>Flexibility</strong>: When a function has default values for some parameters, keyword arguments make it easy to pass values only for specific parameters and rely on defaults for the others. This can lead to cleaner and more concise function calls.</p></li>
+<li><p><strong>Easier to refactor</strong>: When using keyword arguments, adding, removing, or changing the order of parameters in a function’s signature becomes less error-prone, since the function calls explicitly specify which argument corresponds to which parameter.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">phone</span><span class="p">,</span> <span class="n">is_admin</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+    <span class="kc">True</span>
+
+<span class="n">create_user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
+    <span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;johndoe@example.com&#39;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;mypassword&#39;</span><span class="p">,</span>
+    <span class="n">address</span><span class="o">=</span><span class="s1">&#39;123 Main St.&#39;</span><span class="p">,</span>
+    <span class="n">phone</span><span class="o">=</span><span class="s1">&#39;555-555-5555&#39;</span>
+    <span class="p">)</span>
+
+<span class="c1"># Or, less commonly by unpacking a dictionary...</span>
+<span class="n">user</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="s1">&#39;johndoe@example.com&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;mypassword&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;123 Main St.&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;phone&#39;</span><span class="p">:</span> <span class="s1">&#39;555-555-5555&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;is_admin&#39;</span><span class="p">:</span> <span class="kc">False</span>
+<span class="p">}</span>
+
+<span class="n">create_user</span><span class="p">(</span><span class="o">**</span><span class="n">user</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Python 3</span>
+<span class="c1"># Use &quot;*&quot; to enforce keyword-only arguments</span>
+<span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">phone</span><span class="p">,</span> <span class="n">is_admin</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+    <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-2">
+<h2>Smell 2<a class="headerlink" href="#smell-2" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Poorly named variables and functions</strong></p>
+<p>Poor variable and function names make the code harder to understand, and lead to confusion and mistakes when working on the code.</p>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function calculate(a) {
+  let b = 0;
+  for (let i = 0; i &lt; a.length; i++) {
+    b += a[i];
+  }
+  return b;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+
+console.log(calculate(numbers)); // 15
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">calculate</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span> <span class="c1"># 15</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h3>Solution<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>In this improved version, the function is renamed to <code class="docutils literal notranslate"><span class="pre">sumArray</span></code> and <code class="docutils literal notranslate"><span class="pre">sum_array</span></code>, which better reflects its behavior. Additionally, the variable names, <code class="docutils literal notranslate"><span class="pre">numbers</span></code> and <code class="docutils literal notranslate"><span class="pre">sum</span></code>, are more descriptive, which makes it easier to understand the function’s operation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function sumArray(numbers) {
+  let sum = 0;
+  for (let i = 0; i &lt; numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+const sum = sumArray(numbers);
+
+console.log(sum); // Output: 15
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sum_array</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">total_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="n">total_sum</span> <span class="o">+=</span> <span class="n">number</span>
+    <span class="k">return</span> <span class="n">total_sum</span>
+
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nb">sum</span> <span class="o">=</span> <span class="n">sum_array</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">)</span> <span class="c1"># Output: 15</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-3">
+<h2>Smell 3<a class="headerlink" href="#smell-3" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Mixing concerns</strong></p>
+<p>“Mixing concerns” is a code smell that occurs when a function or a module tries to handle multiple responsibilities that should be separated into smaller, more focused pieces. This violates the Single Responsibility Principle (SRP), which states that a class or function should have only one reason to change.</p>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function processOrder(order) {
+  // Calculate order total
+  let total = 0;
+  order.items.forEach(item =&gt; {
+    total += item.price * item.quantity;
+  });
+
+  // Apply discount (if any)
+  if (order.discountCode) {
+    if (order.discountCode === &quot;SUMMER10&quot;) {
+      total *= 0.9;
+    } else if (order.discountCode === &quot;BLACKFRIDAY&quot;) {
+      total *= 0.8;
+    }
+  }
+
+  // Prepare order for shipping
+  const shippingAddress = `${order.shippingInfo.street}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.zipCode}`;
+
+  // Send confirmation email
+  const emailSubject = `Order Confirmation: ${order.id}`;
+  const emailBody = `Your order has been received and will be shipped to: ${shippingAddress}. The order total is $${total.toFixed(2)}.`;
+  sendEmail(order.customer.email, emailSubject, emailBody);
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_order</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
+    <span class="c1"># Calculate order total</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;quantity&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Apply discount (if any)</span>
+    <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;discount_code&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;discount_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SUMMER10&quot;</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">*=</span> <span class="mf">0.9</span>
+        <span class="k">elif</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;discount_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;BLACKFRIDAY&quot;</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">*=</span> <span class="mf">0.8</span>
+
+    <span class="c1"># Prepare order for shipping</span>
+    <span class="n">shipping_address</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;shipping_info&#39;</span><span class="p">][</span><span class="s1">&#39;street&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;shipping_info&#39;</span><span class="p">][</span><span class="s1">&#39;city&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;shipping_info&#39;</span><span class="p">][</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;shipping_info&#39;</span><span class="p">][</span><span class="s1">&#39;zip_code&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Send confirmation email</span>
+    <span class="n">email_subject</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Order Confirmation: </span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">email_body</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Your order has been received and will be shipped to: </span><span class="si">{</span><span class="n">shipping_address</span><span class="si">}</span><span class="s2">. The order total is $</span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="n">send_email</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;customer&#39;</span><span class="p">][</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="n">email_subject</span><span class="p">,</span> <span class="n">email_body</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h3>Solution<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>In the improved version, we have separated the concerns into smaller, more focused functions. Each function is responsible for a specific part of the order processing, making the code easier to read, understand, maintain, and test. The <code class="docutils literal notranslate"><span class="pre">processOrder</span></code> and <code class="docutils literal notranslate"><span class="pre">process_order</span></code> functions now acts as a coordinator that calls these smaller functions in sequence.</p>
+<p>By splitting the function into smaller functions with a single purpose we can:</p>
+<ul class="simple">
+<li><p>Improve the modularity, readability, maintainability, and testability of our code</p></li>
+<li><p>Make the code easier to reason about</p></li>
+<li><p>Handle errors more gracefully</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function calculateOrderTotal(order) {
+  let total = 0;
+  order.items.forEach(item =&gt; {
+    total += item.price * item.quantity;
+  });
+  return total;
+}
+
+function applyDiscount(total, discountCode) {
+  if (discountCode === &quot;SUMMER10&quot;) {
+    return total * 0.9;
+  } else if (discountCode === &quot;BLACKFRIDAY&quot;) {
+    return total * 0.8;
+  }
+  return total;
+}
+
+function prepareShippingAddress(shippingInfo) {
+  return `${shippingInfo.street}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.zipCode}`;
+}
+
+function sendOrderConfirmationEmail(order, total, shippingAddress) {
+  const emailSubject = `Order Confirmation: ${order.id}`;
+  const emailBody = `Your order has been received and will be shipped to: ${shippingAddress}. The order total is $${total.toFixed(2)}.`;
+  sendEmail(order.customer.email, emailSubject, emailBody);
+}
+
+function processOrder(order) {
+  let total = calculateOrderTotal(order);
+  total = applyDiscount(total, order.discountCode);
+  const shippingAddress = prepareShippingAddress(order.shippingInfo);
+  sendOrderConfirmationEmail(order, total, shippingAddress);
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_order_total</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;quantity&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">apply_discount</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">discount_code</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">discount_code</span> <span class="o">==</span> <span class="s2">&quot;SUMMER10&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">total</span> <span class="o">*</span> <span class="mf">0.9</span>
+    <span class="k">elif</span> <span class="n">discount_code</span> <span class="o">==</span> <span class="s2">&quot;BLACKFRIDAY&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">total</span> <span class="o">*</span> <span class="mf">0.8</span>
+    <span class="k">return</span> <span class="n">total</span>
+
+<span class="k">def</span> <span class="nf">prepare_shipping_address</span><span class="p">(</span><span class="n">shipping_info</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">shipping_info</span><span class="p">[</span><span class="s1">&#39;street&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">shipping_info</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">shipping_info</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">shipping_info</span><span class="p">[</span><span class="s1">&#39;zip_code&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="k">def</span> <span class="nf">send_order_confirmation_email</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">shipping_address</span><span class="p">):</span>
+    <span class="n">email_subject</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Order Confirmation: </span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">email_body</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Your order has been received and will be shipped to: </span><span class="si">{</span><span class="n">shipping_address</span><span class="si">}</span><span class="s2">. The order total is $</span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="n">send_email</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;customer&#39;</span><span class="p">][</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="n">email_subject</span><span class="p">,</span> <span class="n">email_body</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">process_order</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">calculate_order_total</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">apply_discount</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">order</span><span class="p">[</span><span class="s1">&#39;discount_code&#39;</span><span class="p">])</span>
+    <span class="n">shipping_address</span> <span class="o">=</span> <span class="n">prepare_shipping_address</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="s1">&#39;shipping_info&#39;</span><span class="p">])</span>
+    <span class="n">send_order_confirmation_email</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">shipping_address</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-4">
+<h2>Smell 4<a class="headerlink" href="#smell-4" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Duplicated code</strong></p>
+<p>Having the same code in multiple places can make the code harder to maintain, or lead to bugs.</p>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function calculateTotalPrice(items) {
+  let totalPrice = 0;
+  for (let i = 0; i &lt; items.length; i++) {
+    totalPrice += items[i].price;
+  }
+  return totalPrice;
+}
+
+function calculateAveragePrice(items) {
+  let totalPrice = 0;
+  for (let i = 0; i &lt; items.length; i++) {
+    totalPrice += items[i].price;
+  }
+  const average = totalPrice / items.length;
+  return average;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_total_price</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+    <span class="n">total_price</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">total_price</span> <span class="o">+=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">total_price</span>
+
+<span class="k">def</span> <span class="nf">calculate_average_price</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+    <span class="n">total_price</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">total_price</span> <span class="o">+=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span>
+    <span class="n">average</span> <span class="o">=</span> <span class="n">total_price</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">average</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id3">
+<h3>Solution<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">calculateTotalPrice</span></code> and <code class="docutils literal notranslate"><span class="pre">calculate_total_price</span></code> functions can be re-used when calculating the average price. This avoids duplication and makes the code easier to read.</p>
+<i>
+While the DRY (Don't Repeat Yourself) principle is a good guideline for writing clean and maintainable code, there are a few potential pitfalls to keep in mind when trying to make code DRY too soon:
+<ul class="simple">
+<li><p>Premature abstraction: If you try to abstract away code that is not yet stable or fully understood, you may end up creating more complexity and making it harder to change the code in the future.</p></li>
+<li><p>Over-engineering: If you try to make code DRY too soon, you may end up over-engineering your solution and making it more complex than it needs to be, which can lead to additional bugs and maintenance overhead.</p></li>
+<li><p>Poor readability: If you focus too much on making code DRY, you may end up sacrificing readability and making it harder for other developers to understand the code.</p></li>
+<li><p>Premature optimization: If you focus too much on making code DRY, you may end up optimizing code that does not yet need to be optimized, which can lead to wasted effort and slower development times.
+</i></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function calculatePrice(items) {
+  let totalPrice = 0;
+
+  for (let i = 0; i &lt; items.length; i++) {
+    totalPrice += items[i].price;
+  }
+
+  return totalPrice;
+}
+
+function calculateAveragePrice(items) {
+  if (items.length === 0) {
+    return 0;
+  }
+
+  const totalPrice = calculatePrice(items);
+  const averagePrice = totalPrice / items.length;
+
+  return averagePrice;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_price</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+    <span class="n">total_price</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total_price</span>
+
+<span class="k">def</span> <span class="nf">calculate_average_price</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">total_price</span> <span class="o">=</span> <span class="n">calculate_price</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="n">average_price</span> <span class="o">=</span> <span class="n">total_price</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">average_price</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-5">
+<h2>Smell 5<a class="headerlink" href="#smell-5" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Function is too long</strong></p>
+<p>Functions that are too long can be hard to read and understand. It can also be a sign that the function is doing too much and should be split into smaller functions, i.e. “mixing concerns”.</p>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># 400 lines of code...</span>
+    <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id4">
+<h3>Solution<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Break the function into smaller, more focused functions: Identify distinct pieces of logic within the function and extract them into separate functions.</p></li>
+<li><p>Eliminate duplication: Look for code that is repeated within the function and extract it into a separate function.</p></li>
+</ul>
+</section>
+</section>
+<section id="smell-6">
+<h2>Smell 6<a class="headerlink" href="#smell-6" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Deeply nested code</strong></p>
+<p>Nested loops make the code difficult to read and understand, and it may be hard to modify or extend the function.</p>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function findLargestNumber(arrays) {
+  let largest = -Infinity;
+  if (Array.isArray(arrays)) {
+    for (let i = 0; i &lt; arrays.length; i++) {
+      const innerArray = arrays[i];
+      if (Array.isArray(innerArray)) {
+        for (let j = 0; j &lt; innerArray.length; j++) {
+          const value = innerArray[j];
+          if (value &gt; largest) {
+            largest = value;
+          }
+        }
+      }
+    }
+  }
+  return largest === -Infinity ? null : largest;
+}
+
+const arrays = [
+  [1, 7, 12],
+  [19, 24, 32, 8]
+];
+
+console.log(findLargestNumber(arrays)); // 32
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_largest_number</span><span class="p">(</span><span class="n">arrays</span><span class="p">):</span>
+    <span class="n">largest</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arrays</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">inner_array</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inner_array</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">inner_array</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">largest</span><span class="p">:</span>
+                        <span class="n">largest</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">largest</span> <span class="k">if</span> <span class="n">largest</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+
+<span class="n">arrays</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">find_largest_number</span><span class="p">(</span><span class="n">arrays</span><span class="p">))</span> <span class="c1"># 32</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id5">
+<h3>Solution<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>In this refactored code, we flatten the array to avoid nested loops, and use <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> to find the largest value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function findLargestNumber(arrays) {
+  const flatArray = arrays.flatMap(array =&gt; array);
+  return flatArray.length ? Math.max(...flatArray) : null;
+}
+
+const arrays = [
+  [1, 7, 12],
+  [19, 24, 32, 8]
+];
+
+console.log(findLargestNumber(arrays)); // 32
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_largest_number</span><span class="p">(</span><span class="n">arrays</span><span class="p">):</span>
+    <span class="n">flat_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">inner_list</span> <span class="ow">in</span> <span class="n">arrays</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">inner_list</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">flat_list</span><span class="p">)</span> <span class="k">if</span> <span class="n">flat_list</span> <span class="k">else</span> <span class="kc">None</span>
+
+<span class="n">arrays</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+  <span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">find_largest_number</span><span class="p">(</span><span class="n">arrays</span><span class="p">))</span> <span class="c1"># 32</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-7">
+<h2>Smell 7<a class="headerlink" href="#smell-7" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Using magic numbers</strong></p>
+<p>Magic numbers are hardcoded numerical values that are not explained by their context, which can make the code difficult to understand and maintain.</p>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function areaInSqMeters(lengthFeet, widthFeet) {
+  const areaInFeet = lengthFeet * widthFeet;
+  return areaInFeet * Math.pow(0.3048, 2);
+}
+
+console.log(areaInSqMeters(10, 20)); // 18.580608
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18.580608
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">area_in_sq_meters</span><span class="p">(</span><span class="n">length_feet</span><span class="p">,</span> <span class="n">width_feet</span><span class="p">):</span>
+    <span class="n">area_in_feet</span> <span class="o">=</span> <span class="n">length_feet</span> <span class="o">*</span> <span class="n">width_feet</span>
+    <span class="k">return</span> <span class="n">area_in_feet</span> <span class="o">*</span> <span class="mf">0.3048</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">area_in_sq_meters</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span> <span class="c1"># 18.580608</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18.580608
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id6">
+<h3>Solution<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>By using a named constant, we make the code more readable and easier to maintain, because the purpose and meaning of the number is now clear.</p>
+<p>Additionally, if we need to change the value later (unlikely in this case), we can do so by simply updating the value of the constant, rather than searching through the code to find all instances of the magic number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+const FEET_TO_METERS_CONVERSION_FACTOR = 0.3048;
+
+function areaInSqMeters(lengthFeet, widthFeet) {  
+  const areaInFeet = lengthFeet * widthFeet;
+  return areaInFeet * Math.pow(FEET_TO_METERS_CONVERSION_FACTOR, 2);
+}
+
+function feetToMeters(length) {
+  return length * FEET_TO_METERS_CONVERSION_FACTOR;
+}
+
+console.log(areaInSqMeters(10, 20)); // 18.580608
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18.580608
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FEET_TO_METERS_CONVERSION_FACTOR</span> <span class="o">=</span> <span class="mf">0.3048</span>
+
+<span class="k">def</span> <span class="nf">area_in_sq_meters</span><span class="p">(</span><span class="n">length_feet</span><span class="p">,</span> <span class="n">width_feet</span><span class="p">):</span>
+    <span class="n">area_in_feet</span> <span class="o">=</span> <span class="n">length_feet</span> <span class="o">*</span> <span class="n">width_feet</span>
+    <span class="k">return</span> <span class="n">area_in_feet</span> <span class="o">*</span> <span class="n">FEET_TO_METERS_CONVERSION_FACTOR</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">area_in_sq_meters</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span> <span class="c1"># 18.580608</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18.580608
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-8">
+<h2>Smell 8<a class="headerlink" href="#smell-8" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Inconsistent naming</strong></p>
+<p>Inconsistent naming can make the code harder to read and understand. Adopting consistent naming conventions across the code base can improve readability and maintainability.</p>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+const database = {
+  getUserById: () =&gt; {},
+  deleteUser: () =&gt; {}
+};
+
+function getUser(auth0User) {
+  return database.getUserById(auth0User);
+}
+
+function deleteUserById(userId) {
+  return database.deleteUser(userId);
+}
+
+const auth0UserId = &#39;xyz123&#39;;
+
+const user = getUser(auth0UserId);
+
+// ...later
+deleteUserById(auth0UserId);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="n">auth0_user</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">database</span><span class="o">.</span><span class="n">get_user_by_id</span><span class="p">(</span><span class="n">auth0_user</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">delete_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">database</span><span class="o">.</span><span class="n">delete_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+<span class="n">auth0UserId</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;auth_0_user_id&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">30</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">def</span> <span class="nf">delete_user_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>   <span class="k">return</span> <span class="n">database</span><span class="o">.</span><span class="n">delete_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">auth0UserId</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;auth_0_user_id&#39;</span><span class="p">]</span>
+
+<span class="ne">KeyError</span>: &#39;auth_0_user_id&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id7">
+<h3>Solution<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>In this version we are referring to the user’s id in a consistent way, i.e. <code class="docutils literal notranslate"><span class="pre">auth0UserId</span></code> and <code class="docutils literal notranslate"><span class="pre">auth0_user_id</span></code>. The function names also follow the same naming convention and make the expected input clear.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+const database = {
+  getUserByAuth0Id: () =&gt; {},
+  deleteUserByAuth0Id: () =&gt; {},
+};
+
+function getUserByAuth0Id(auth0UserId) {
+  return database.getUserByAuth0Id(auth0UserId);
+}
+
+function deleteUserByAuth0Id(auth0UserId) {
+  return database.deleteUserByAuth0Id(auth0UserId);
+}
+
+const auth0UserId = &#39;xyz123&#39;;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_user_by_auth0_id</span><span class="p">(</span><span class="n">auth0_user_id</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">database</span><span class="o">.</span><span class="n">get_user_by_auth0_id</span><span class="p">(</span><span class="n">auth0_user_id</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">delete_user_by_auth0_id</span><span class="p">(</span><span class="n">auth0_user_id</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">database</span><span class="o">.</span><span class="n">delete_user_by_auth0_id</span><span class="p">(</span><span class="n">auth0_user_id</span><span class="p">)</span>
+
+<span class="n">auth0_user_id</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;auth_0_user_id&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-9">
+<h2>Smell 9<a class="headerlink" href="#smell-9" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Complex Conditionals</strong></p>
+<p>Large or nested conditionals can impact the following:</p>
+<ul class="simple">
+<li><p><strong>Readability</strong>: Complex conditionals can be challenging to comprehend, as they require the reader to understand multiple conditions and their relationships. This cognitive load can lead to misunderstandings and mistakes.</p></li>
+<li><p><strong>Maintainability</strong>: Modifying, extending, or refactoring code with large or nested conditionals can be complex and error-prone. It’s more challenging to make changes without accidentally introducing bugs or affecting other parts of the code.</p></li>
+<li><p><strong>Testability</strong>: Writing comprehensive tests that cover all possible execution paths becomes more difficult with complex conditionals. This can result in insufficient test coverage and undetected bugs.</p></li>
+</ul>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function calculateDiscount(price, user) {
+  let discount = 0;
+
+  if (user) {
+    if (user.membership) {
+      if (user.membership === &#39;gold&#39;) {
+        discount = price * 0.2;
+      } else if (user.membership === &#39;silver&#39;) {
+        discount = price * 0.1;
+      } else if (user.membership === &#39;bronze&#39;) {
+        discount = price * 0.05;
+      }
+    } else {
+      if (price &gt; 100) {
+        discount = price * 0.02;
+      } else {
+        discount = 0;
+      }
+    }
+  } else {
+    discount = 0;
+  }
+
+  return discount;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_discount</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="n">discount</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;membership&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;membership&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;gold&#39;</span><span class="p">:</span>
+                <span class="n">discount</span> <span class="o">=</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.2</span>
+            <span class="k">elif</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;membership&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;silver&#39;</span><span class="p">:</span>
+                <span class="n">discount</span> <span class="o">=</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.1</span>
+            <span class="k">elif</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;membership&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bronze&#39;</span><span class="p">:</span>
+                <span class="n">discount</span> <span class="o">=</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.05</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">price</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">discount</span> <span class="o">=</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.02</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">discount</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">discount</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">discount</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id8">
+<h3>Solution<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>In the improved version, we use early returns to simplify the code and reduce the level of nesting. This makes the code easier to read, understand, and maintain. Each condition is evaluated in isolation, and when a specific condition is met, the corresponding discount is returned immediately. If none of the conditions are met, a default value of 0 is returned at the end of the function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+const MEMBER_DISCOUNTS = {
+  gold: 0.2,
+  // ...
+}
+
+
+function calculateDiscount(price, user) {
+  if (!user) {
+    return 0;
+  }
+
+  if (!user.membership) {
+    if (price &gt; 100) {
+      return price * 0.02;
+    }
+    return 0;
+  }
+
+  if (user.membership === &#39;gold&#39;) {
+    return price * 0.2;
+  }
+
+  if (user.membership === &#39;silver&#39;) {
+    return price * 0.1;
+  }
+
+  if (user.membership === &#39;bronze&#39;) {
+    return price * 0.05;
+  }
+
+  return 0;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_discount</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;membership&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">price</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.02</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;membership&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;gold&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.2</span>
+
+    <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;membership&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;silver&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.1</span>
+
+    <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;membership&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bronze&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">0.05</span>
+
+    <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-10">
+<h2>Smell 10<a class="headerlink" href="#smell-10" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Not handling errors when making API calls</strong></p>
+<p>When making API calls, it’s important to handle errors properly. Failure to do so can result in unexpected behavior or errors.</p>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+fetch(&#39;https://example.com/api/data&#39;)
+  .then(response =&gt; response.json())
+  .then(data =&gt; {
+    // do something with data
+  })
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://example.com/api/data&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="c1"># do something with data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id9">
+<h3>Solution<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>With this update we are checking that the response from the API is “ok” before attempting to operate on the returned data. If an error occurs the code handles it appropriately.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+fetch(&#39;https://api.example.com/users&#39;)
+  .then(response =&gt; {
+    if (!response.ok) {
+      throw new Error(&#39;Network response was not ok&#39;);
+    }
+    return response.json();
+  })
+  .then(data =&gt; {
+    // Handle successful response
+    console.log(data);
+  })
+  .catch(error =&gt; {
+    // Handle error
+    console.error(&#39;Error:&#39;, error);
+  });
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.example.com/users&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+  <span class="c1"># Handle successful response</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="c1"># Handle error</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="smell-11">
+<h2>Smell 11<a class="headerlink" href="#smell-11" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Mutating arguments</strong></p>
+<p>This function modifies the original array in place. This can lead to unexpected behavior and bugs in other parts of the code that relies on the original values in the array.</p>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function doubleValues(values) {
+  for (let i = 0; i &lt; values.length; i++) {
+    values[i] = values[i] * 2;
+  }
+  return values;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">double_values</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
+        <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id10">
+<h3>Solution<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>The updated function returns a new list instead of mutating the original.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+function doubleValues(values) {
+  const doubledValues = values.map(x =&gt; x * 2);
+  return doubledValues;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">double_values</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">doubled_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">doubled_values</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="other">
+<h2>Other<a class="headerlink" href="#other" title="Permalink to this heading">#</a></h2>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Implicit type coercion</strong></p>
+<p>Implicit type coercion can lead to unexpected results or errors in code.</p>
+</details>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+let x = 5;
+let y = &quot;10&quot;;
+let z = x + y; // &quot;510&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+  <summary>What is the smell?</summary>
+<p><strong>Type mutation</strong></p>
+<p>Type mutation can lead to confusion or errors if later parts of the code assume that the variable is still the orginal type.</p>
+</details><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">script</span> node
+
+let foo = &#39;some-string&#39;;
+
+foo = foo.split(&#39;-&#39;);
+
+console.log(foo) // [&#39;some&#39;, &#39;string&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clarity</span>
+
+<span class="k">def</span> <span class="nf">auth_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">not_admin</span><span class="p">):</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">not_admin</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;full access&quot;</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;restricted access&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unhelpful logging</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-1">Smell 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-2">Smell 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-3">Smell 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-4">Smell 4</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-5">Smell 5</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-6">Smell 6</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-7">Smell 7</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-8">Smell 8</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-9">Smell 9</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-10">Smell 10</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smell-11">Smell 11</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other">Other</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
